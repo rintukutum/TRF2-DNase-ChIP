@@ -1,3 +1,6 @@
+##################
+### Author: Rintu Kutum
+##################
 rm(list=ls())
 dat <- read.table('./data/TRF2/Table-2A-figure.txt',sep='\t',stringsAsFactors=FALSE,header=TRUE)
 p_dat <- read.table('./data/TRF2/Table-2A-p-values.txt',sep='\t',stringsAsFactors=FALSE,header=TRUE)

@@ -1,3 +1,6 @@
+##################
+### Author: Rintu Kutum
+##################
 ############### format dist_json
 rm(list=ls())
 output.json <- list.files(path='./data/Histones/dist_jsons/',pattern='.json', full.names=TRUE)

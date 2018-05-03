@@ -1,3 +1,7 @@
+##################
+### original author: Parashar Dhapola
+### modified by Rintu Kutum
+##################
 import numpy as np
 import sys
 import matplotlib.pyplot as plt

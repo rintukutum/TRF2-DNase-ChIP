@@ -1,3 +1,6 @@
+##################
+### Author: Rintu Kutum
+##################
 rm(list=ls())
 metafile.encode <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgDnaseUniform/files.txt'
 download.file(url=metafile.encode,dest='./data/metafile-encode.txt',quiet=TRUE)

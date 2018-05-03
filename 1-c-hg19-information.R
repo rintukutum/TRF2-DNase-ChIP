@@ -1,3 +1,6 @@
+##################
+### Author: Rintu Kutum
+##################
 rm(list=ls())
 hg19.info <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/bigZips/hg19.chrom.sizes'
 hg19 <- readLines(hg19.info)

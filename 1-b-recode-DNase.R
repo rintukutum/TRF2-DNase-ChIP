@@ -1,3 +1,6 @@
+##################
+### Author: Rintu Kutum
+##################
 rm(list=ls())
 metafile.encode <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgDnaseUniform/files.txt'
 gz.files <- list.files(

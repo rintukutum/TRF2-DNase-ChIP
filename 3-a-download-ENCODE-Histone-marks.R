@@ -1,3 +1,6 @@
+##################
+### Author: Rintu Kutum
+##################
 rm(list=ls())
 dir.create('./data/Histones/',showWarnings=FALSE)
 cmd <- "curl -l ftp.ebi.ac.uk/pub/databases/ensembl/encode/integration_data_jan2011/byDataType/peaks/jan2011/histone_macs/optimal/hub/ > ./data/Histones/temp.txt"
