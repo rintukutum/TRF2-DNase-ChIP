@@ -1,6 +1,11 @@
 # TRF2-DNase-ChIP
 Codes for data processing and figure generation
 
+### R packages
+```{}
+install.packages(c("progess","plyr","ggplot2"))
+```
+
 ### Download ENCODE DNase files
 - Download and store the DNase file using the meta file information.
 ```{shell}
