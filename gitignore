@@ -1,0 +1,2 @@
+# narrow DNase files from ENCODE
+data/DNase/*.gz

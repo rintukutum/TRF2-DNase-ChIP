@@ -1,10 +1,3 @@
-# TRF2-DNase-ChIP
-Codes for data processing and figure generation
-
-## Download ENCODE DNase files
-Download and store the DNase file using the meta file information.
-`{R}
-# Rscript 1-download-DNase-ENCODE.R
 rm(list=ls())
 metafile.encode <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgDnaseUniform/files.txt'
 download.file(url=metafile.encode,dest='./data/metafile-encode.txt',quiet=TRUE)
@@ -23,5 +16,3 @@ for(i in 1:nrow(meta.data)){
 	)
 	message(paste(i,': ', outfile,' done!',sep=''))
 }
-
-`
