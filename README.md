@@ -2,11 +2,11 @@
 Codes for data processing and figure generation
 
 ## Download ENCODE DNase files
-Download and store the DNase file using the meta file information.
-
+- Download and store the DNase file using the meta file information.
 ```{shell}
+# shell
 Rscript 1-download-DNase-ENCODE.R
 ```
-
+- Format DNase
 
 
