@@ -14,5 +14,5 @@
 /data/Histones/bed_formatted/*.bed
 
 # distance files
-/data/Histones/dist_jsons/*.bed
+/data/Histones/dist_jsons/*.json
 
