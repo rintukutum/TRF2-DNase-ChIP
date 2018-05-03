@@ -3,7 +3,7 @@ Codes for data processing and figure generation
 
 ## Download ENCODE DNase files
 Download and store the DNase file using the meta file information.
-`{R}
+```{R}
 # Rscript 1-download-DNase-ENCODE.R
 rm(list=ls())
 metafile.encode <- 'http://hgdownload.cse.ucsc.edu/goldenPath/hg19/encodeDCC/wgEncodeAwgDnaseUniform/files.txt'
@@ -24,4 +24,4 @@ for(i in 1:nrow(meta.data)){
 	message(paste(i,': ', outfile,' done!',sep=''))
 }
 
-`
+```
