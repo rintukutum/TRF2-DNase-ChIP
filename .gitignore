@@ -1,2 +1,18 @@
 # narrow DNase files from ENCODE
 data/DNase/*.gz
+
+# processed DNase bed files
+data/recode-DNase/*.bed
+
+# bb files
+data/Histones/bb/*.bb
+
+# bed files
+data/Histones/bed/*.bed
+
+# format bed
+data/Histones/bed_formatted/*.bed
+
+# distance files
+data/Histones/dist_jsons/*.bed
+
