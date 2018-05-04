@@ -66,5 +66,5 @@ Rscript 3-c-format-filename-histone-marks.R
 ```{shell}
 python 3-d-generate-Fig-3A-C-and-Suppl-fig-4A-D.py
 ```
-
+-- ![Figure-2A]{./figures/Figure-2A-dnase_histogram-final.png}
 
