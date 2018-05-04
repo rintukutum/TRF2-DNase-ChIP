@@ -40,17 +40,17 @@ Rscript 1-c-hg19-information.R
 ```{shell}
 python 2-b-Figure-2A.py
 ```
-	- Figure-2A ![Figure-2A](./figures/Figure-2A-dnase_histogram-final.png)
+![Figure-2A](./figures/Figure-2A-dnase_histogram-final.png)
 - DES per chromosome comparison
 ```{shell}
 Rscript 2-c-Suppl-Figure-2.R
 ```
-	- Suppl-figure-2C ![supp-figure-2C](./figures/Supp-Figure-2-boxplot.png)
+![supp-figure-2C](./figures/Supp-Figure-2-boxplot.png)
 - DES differences between TRF2 and Random
 ```{shell}
 python 2-d-Figure-2B-TRF2vsRandom.py
 ```
-	- Figure-2B ![Figure-2B](./figures/Figure-2B-dnase_TRF2_vs_Random.png)
+![Figure-2B](./figures/Figure-2B-dnase_TRF2_vs_Random.png)
 ### Histones marks overlap with TRF2
 - Download Histone peaks from ENCODE
 ```{shell}
