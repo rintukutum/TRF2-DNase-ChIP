@@ -48,5 +48,9 @@ python 3-b-histones-closest-dist.py
 ```{shell}
 Rscript 3-c-format-filename-histone-marks.R
 ```
+- Generate Figure 2A-C and supplementary figure 4A-D
+```{shell}
+python 3-d-generate-Fig-3A-C-and-Suppl-fig-4A-D.py
+```
 
 
