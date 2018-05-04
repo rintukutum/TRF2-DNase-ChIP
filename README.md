@@ -5,7 +5,21 @@ Codes for data processing and figure generation
 ```{}
 install.packages(c("progess","plyr","ggplot2"))
 ```
-
+### python modules used
+```{}
+import numpy 
+import matplotlib
+import seaborn
+import scipy
+import pybedtools
+import pysam
+import json
+import pandas
+import re
+import collections
+import itertools
+import tables
+```
 ### Download ENCODE DNase files
 - Download and store the DNase file using the meta file information.
 ```{shell}
