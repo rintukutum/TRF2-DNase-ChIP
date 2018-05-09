@@ -65,7 +65,7 @@ flank_seq <- trf2_flank$V4
 mapped <- c()
 for(i in 1:length(flank_seq)){
 	print(i)
-	mapped[i] <- countPattern(
+	mapped[i] <- Biostrings::countPattern(
 		query_motif,
 		flank_seq[i],
 		max.mismatch=1
@@ -79,7 +79,7 @@ test <- matchPattern(
 )
 output <- list()
 for(i in 1:length(idx)){
-	hit <- matchPattern(
+	hit <- Biostrings::matchPattern(
 		query_motif,
 		flank_seq[idx[i]],
 		max.mismatch=1
