@@ -53,6 +53,7 @@ write.table(
 	quote=FALSE
 )
 rm(list=ls())
+library(Biostrings)
 trf2_flank <- read.table(
 	'./data/TRF2/flank_50bp_TRF2_summit.bed',
 	header=FALSE,

@@ -153,7 +153,7 @@ getConsHits <- function(coord,hits=4){
 	if(any(cons.status)){
 		cons.coord <- coord[unlist(cons),]
 	}else{
-		cons.coord <- coord_hit_idx[[58]][1,]
+		cons.coord <- coord[1,]
 		cons.coord[1,] <- NA
 	}
 	return(cons.coord)
