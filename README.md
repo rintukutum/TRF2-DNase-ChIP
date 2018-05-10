@@ -73,9 +73,10 @@ python 3-d-generate-Fig-3A-C-and-Suppl-fig-4A-D.py
 ```
 Figure-3A
 ![Figure-3A](./figures/Figure-3_histone_activation-150dpi.png)
-Figure-3B
-![Figure-3B](./figures/Figure-3_histone_repression-150dpi.png)
-Figure-3C
-![Figure-3B](./figures/Figure-3_histone_others-150dpi.png)
+Figure-3B and  Figure-3C
+
+![Figure-3B](./figures/Figure-3_histone_repression-150dpi.png) ![Figure-3B](./figures/Figure-3_histone_others-150dpi.png)
+
+
 
 
