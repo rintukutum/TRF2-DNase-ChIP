@@ -1,6 +1,9 @@
 #############
+# author : Rintu Kutum
+#############
 # Libraries
 library('Biostrings')
+library('GenomicRanges')
 ### progress bars
 getPB <-function(msg='', n){
 	pb <- progress::progress_bar$new(
@@ -151,4 +154,71 @@ getConsHits <- function(
 		cons.coord[1,] <- NA
 	}
 	return(cons.coord)
+}
+#---------------
+# if start is greater than end, then swap
+checkSEswap <- function(s,e){
+	if(s > e){
+		sd <- e
+		ed <- s
+		# swap
+		s <- sd
+		e <- ed
+	}
+	return(c(s=s,e=e))
+}
+#--------------
+# find common peaks against our TRF2 peaks
+findCommonPeaks.TRF2 <- function(
+	query,
+	search
+){
+	# format
+	colnames(query) <- colnames(search) <- c('chr','start','end')
+	# sorting
+	for(i in 1:nrow(query)){
+		s <- query[i,2]
+		e <- query[i,3]
+		x <- checkSEswap(s,e)
+		query[i,2:3] <- x
+	}
+	query.s <- plyr::ddply(query, 'chr', function(x){x[order(x$start),]})
+	search.s <- plyr::ddply(search, 'chr', function(x){x[order(x$start),]})
+	q.gr <- makeGRangesFromDataFrame(query.s)
+	s.gr <- makeGRangesFromDataFrame(search.s)
+	sq_overlap <- findOverlaps(s.gr,q.gr)
+	sq_count <- countOverlaps(s.gr,q.gr)
+	#
+	q.coord <- q.gr[sq_overlap@to,]
+	q.ov <- data.frame(q.coord)[,1:4]
+	colnames(q.ov)[1] <- 'chr'
+	colnames(q.ov)[-1] <- paste(colnames(q.ov)[-1],'-q',sep='')
+	s.coord <- s.gr[sq_overlap@from,]
+	s.ov <- data.frame(s.coord)[,2:4]
+	colnames(s.ov) <- paste(colnames(s.ov),'-s',sep='')
+	if(nrow(s.ov) == 0){
+		s.ov[1,] <- NA
+		q.ov[1,] <- NA
+	}
+	output <- data.frame(
+		q.ov,
+		s.ov
+	)
+	return(output)
+}
+#########
+# include only knowm 
+read_bed <- function(
+	bed.file,
+	delim = '\t',
+	header = FALSE
+){
+	bed <- read.table(
+		file = bed.file,
+		header = header,
+		sep = delim,
+		stringsAsFactors = FALSE
+		)
+	idx.chr1_24 <- grep('chr[1-9|X|Y]',bed[,1])
+	return(bed[idx.chr1_24,])
 }

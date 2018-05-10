@@ -30,6 +30,7 @@ trf2_flank <- read.table(
 	sep= '\t',
 	stringsAsFactors=FALSE
 )
+########## 1 mismatch
 output.df <- getMotifMaps(
 	motif = 'TTAGGG',
 	bed = trf2_flank,
@@ -42,17 +43,31 @@ output.df,
 './data/TRF2/motif-TTAGGG/motif-TTAGGG-1-mismatch-TRF2-summit-peak.csv',
 row.names=FALSE
 )
-#################
-rm(list=ls())
-motif_mapped <- read.csv(
-'./data/TRF2/motif-TTAGGG/motif-TTAGGG-1-mismatch-TRF2-summit-peak.csv',
-stringsAsFactors=FALSE
+########## perfect match
+output.df <- getMotifMaps(
+	motif = 'TTAGGG',
+	bed = trf2_flank,
+	seq = trf2_flank$V4,
+	max.mismatch = 0
 )
-coord_hit <- motif_mapped
-idx <- coord_hit$hit >= 4
-coord_hit_idx <- plyr::dlply(coord_hit[idx,],'idx')
-source('./util-funcs.R')
-hits.status <- lapply(coord_hit_idx,getConsHits)
-hits.status.df <- na.omit(plyr::ldply(hits.status))[,-1]
+write.csv(
+output.df,
+'./data/TRF2/motif-TTAGGG/motif-TTAGGG-NO-mismatch-TRF2-summit-peak.csv',
+row.names=FALSE
+)
+######### get the tags 
+
+################# not required
+#rm(list=ls())
+#motif_mapped <- read.csv(
+#'./data/TRF2/motif-TTAGGG/motif-TTAGGG-1-mismatch-TRF2-summit-peak.csv',
+#stringsAsFactors=FALSE
+#)
+#coord_hit <- motif_mapped
+#idx <- coord_hit$hit >= 4
+#coord_hit_idx <- plyr::dlply(coord_hit[idx,],'idx')
+#source('./util-funcs.R')
+#hits.status <- lapply(coord_hit_idx,getConsHits)
+#hits.status.df <- na.omit(plyr::ldply(hits.status))[,-1]
 
 
