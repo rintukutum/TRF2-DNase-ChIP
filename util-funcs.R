@@ -49,6 +49,35 @@ getFlankingRegions <- function(
 	return(flank_bed)
 }
 #------------
+# regions
+getRegionBed <- function(
+	bed
+){
+	region_bed <- bed
+	p.bar <- getPB(
+		msg = 'Processing flanking regions',
+		n  = nrow(bed)
+	)
+	seq <- c()
+	for(i in 1:nrow(bed)){
+		x <- bed[i,]
+		p.bar$tick()
+		chr <- as.character(x[1])
+		s <- as.numeric(x[2])
+		e <- as.numeric(x[3])
+		seq[i] <- as.character(
+			getSeq(
+				BSgenome.Hsapiens.UCSC.hg19::Hsapiens,
+				names=chr,
+				start=s,
+				end=e
+			)
+		)
+	}
+	region_bed$seq <- seq
+	return(region_bed)
+}
+#------------
 # get the count of motifs mapped to a given sequence
 getCountQuery2Flank <- function(
 	motif,
@@ -77,7 +106,8 @@ getMotifMaps <- function(
 	motif,
 	bed,
 	seq,
-	max.mismatch = 1
+	max.mismatch = 1,
+	flank = TRUE
 ){
 	map.count <- getCountQuery2Flank(
 		motif = motif,
@@ -97,16 +127,27 @@ getMotifMaps <- function(
 			seq[idx[i]],
 			max.mismatch=1
 		)
-		output[[i]] <- cbind(
-			data.frame(hit@ranges),
-			query = motif,
-			flank.seq = as.character(hit@subject),
-			chr = bed[idx[i],1],
-			flank.start = bed[idx[i],2],
-			flank.end = bed[idx[i],3],
-			hit = length(hit@ranges),
-			idx = idx[i]
-		)
+		if(flank){
+			output[[i]] <- cbind(
+				data.frame(hit@ranges),
+				query = motif,
+				flank.seq = as.character(hit@subject),
+				chr = bed[idx[i],1],
+				flank.start = bed[idx[i],2],
+				flank.end = bed[idx[i],3],
+				hit = length(hit@ranges),
+				idx = idx[i]
+			)
+		}else{
+			output[[i]] <- cbind(
+				data.frame(hit@ranges),
+				chr = bed[idx[i],1],
+				flank.start = bed[idx[i],2],
+				flank.end = bed[idx[i],3],
+				hit = length(hit@ranges),
+				idx = idx[i]
+			)
+		}
 	}
 	output.df <- plyr::ldply(output)
 	return(output.df)
@@ -221,4 +262,76 @@ read_bed <- function(
 		)
 	idx.chr1_24 <- grep('chr[1-9|X|Y]',bed[,1])
 	return(bed[idx.chr1_24,])
+}
+#############
+### samtools depth
+getDepthSamtools <- function(
+	bed.file,
+	bam.file,
+	genome.fa.file,
+	output.name
+){
+	sam.depth <- "samtools depth -b" 
+	sam.cmd <- paste(
+		sam.depth,
+		bed.file,
+		bam.file,
+		'--reference',
+		genome.fa.file,
+		'>',
+		output.name,
+		sep = ' '
+	)
+	# get depth
+	cat('Processing!\n')
+	system(sam.cmd)
+	cat('Done!\n')
+}
+###########
+# Depth to reads
+getReadsDepth <- function(
+	peak.file,
+	depth.file
+){
+	peak <- read_bed(peak.file)
+	depth <- read_bed(depth.file)
+	peak.chr <- plyr::dlply(peak,.var = 'V1')	
+	depth.chr <- plyr::dlply(depth,.var = 'V1')
+	peak.sum <- c()
+	p.bar <- getPB(
+		msg = 'Extracting reads',
+		n  = nrow(peak)
+	)
+	for(i in 1:nrow(peak)){
+		p.bar$tick()
+		s = peak[i,2]
+		e = peak[i,3]
+		chr = peak[i,1]
+		idx <- which(depth.chr[chr][[1]][,2] >= s & depth.chr[chr][[1]][,2] <= e)
+		peak.sum[i] <- sum(depth.chr[chr][[1]][idx,3])
+	}
+	reads.df <- data.frame(peak, sum=peak.sum)
+	return(reads.df)
+}
+
+#############
+### samtools coverage
+getCoverageSamtools <- function(
+	bed.file,
+	bam.file,
+	output.name
+){
+	sam.bedcov <- "samtools bedcov" 
+	sam.cmd <- paste(
+		sam.bedcov,
+		bed.file,
+		bam.file,
+		'>',
+		output.name,
+		sep = ' '
+	)
+	# get coverage
+	cat('Processing!\n')
+	system(sam.cmd)
+	cat('Done!\n')
 }
